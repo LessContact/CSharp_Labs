@@ -1,4 +1,4 @@
-﻿namespace App.Models;
+﻿namespace T1.SynchronousSimulation.Models;
 using DiningPhilosophers.Contracts;
 
 public class Metrics {

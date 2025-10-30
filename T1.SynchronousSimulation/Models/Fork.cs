@@ -1,6 +1,6 @@
 ﻿using DiningPhilosophers.Contracts;
 
-namespace App.Models;
+namespace T1.SynchronousSimulation.Models;
 
 public class Fork(int id) : IForkInfo {
     public int Id { get; } = id;

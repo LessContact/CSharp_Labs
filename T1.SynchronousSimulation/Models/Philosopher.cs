@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using DiningPhilosophers.Contracts;
 
-namespace App.Models;
+namespace T1.SynchronousSimulation.Models;
 
 public class Philosopher {
     public int Id { get; }

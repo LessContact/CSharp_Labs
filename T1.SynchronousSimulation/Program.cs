@@ -1,7 +1,7 @@
 ﻿using DiningPhilosophers.Contracts;
 using DiningPhilosophers.Strategies;
 
-namespace App;
+namespace T1.SynchronousSimulation;
 
 class Program {
     static void Main(string[] args) {

@@ -1,9 +1,9 @@
-﻿using App.Models;
-using DiningPhilosophers.Contracts;
+﻿using DiningPhilosophers.Contracts;
 using DiningPhilosophers.Strategies;
 using System.Text;
+using T1.SynchronousSimulation.Models;
 
-namespace App;
+namespace T1.SynchronousSimulation;
 
 public class Simulation {
     private readonly List<Philosopher> _philosophers;
