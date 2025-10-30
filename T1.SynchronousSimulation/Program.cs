@@ -1,5 +1,6 @@
 ﻿using DiningPhilosophers.Contracts;
 using DiningPhilosophers.Strategies;
+using Microsoft.Extensions.Configuration;
 
 namespace T1.SynchronousSimulation;
 
@@ -7,14 +8,21 @@ class Program {
     static void Main(string[] args) {
         Console.WriteLine("===== СИМУЛЯЦИЯ ОБЕДАЮЩИХ ФИЛОСОФОВ =====\n");
         
-        var philosopherNames = ReadPhilosopherNames("philosophers.txt");
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
 
-        if (philosopherNames.Count == 0) {
-            Console.WriteLine("Ошибка: не удалось прочитать имена философов из файла.");
+        var philosopherNames = configuration.GetSection("PhilosopherNames").Get<List<string>>();
+        var simulationSettings = configuration.GetSection("SimulationSettings").Get<SimulationSettings>() ?? new SimulationSettings();
+
+        if (philosopherNames == null || philosopherNames.Count == 0) {
+            Console.WriteLine("Ошибка: не удалось прочитать имена философов из конфигурации.");
             return;
         }
 
         Console.WriteLine($"Загружено философов: {philosopherNames.Count}");
+        Console.WriteLine($"Параметры симуляции: {simulationSettings.TotalSteps:N0} шагов, отображение каждые {simulationSettings.DisplayInterval:N0} шагов");
         Console.WriteLine();
         
         Console.WriteLine("Выберите стратегию:");
@@ -43,32 +51,11 @@ class Program {
         }
         
         var simulation = new Simulation(philosopherNames, strategyFactory, coordinator,
-            totalSteps: 1000000, displayInterval: 100000);
+            totalSteps: simulationSettings.TotalSteps, displayInterval: simulationSettings.DisplayInterval);
 
         simulation.Run();
 
         Console.WriteLine("\nСимуляция завершена. Нажмите любую клавишу для выхода...");
         Console.ReadKey();
-    }
-
-    static List<string> ReadPhilosopherNames(string filename) {
-        var names = new List<string>();
-
-        try {
-            if (File.Exists(filename)) {
-                var lines = File.ReadAllLines(filename);
-                foreach (var line in lines) {
-                    var trimmed = line.Trim();
-                    if (!string.IsNullOrWhiteSpace(trimmed)) {
-                        names.Add(trimmed);
-                    }
-                }
-            }
-        }
-        catch (Exception e) {
-            Console.WriteLine($"Ошибка при чтении файла: {e.Message}");
-        }
-
-        return names;
     }
 }
