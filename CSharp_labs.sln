@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiningPhilosophers.Strategi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T2.MultithreadedSimulation", "T2.MultithreadedSimulation\T2.MultithreadedSimulation.csproj", "{9D0FF8F6-FC96-4414-BCB6-7A914D634DA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3.GenericHostSimulator", "T3.GenericHostSimulator\T3.GenericHostSimulator.csproj", "{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,18 @@ Global
 		{9D0FF8F6-FC96-4414-BCB6-7A914D634DA2}.Release|x64.Build.0 = Release|Any CPU
 		{9D0FF8F6-FC96-4414-BCB6-7A914D634DA2}.Release|x86.ActiveCfg = Release|Any CPU
 		{9D0FF8F6-FC96-4414-BCB6-7A914D634DA2}.Release|x86.Build.0 = Release|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Debug|x64.Build.0 = Debug|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Debug|x86.Build.0 = Debug|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|x64.ActiveCfg = Release|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|x64.Build.0 = Release|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|x86.ActiveCfg = Release|Any CPU
+		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
