@@ -19,12 +19,12 @@ public class Simulation {
         _cts = new CancellationTokenSource();
         
         _forks = new List<Fork>();
-        for (int i = 0; i < philosopherNames.Count; i++) {
+        for (var i = 0; i < philosopherNames.Count; i++) {
             _forks.Add(new Fork(i));
         }
         
         _philosophers = new List<Philosopher>();
-        for (int i = 0; i < philosopherNames.Count; i++) {
+        for (var i = 0; i < philosopherNames.Count; i++) {
             var leftFork = _forks[i];
             var rightFork = _forks[(i + 1) % philosopherNames.Count];
             var strategy = strategyFactory(i);
