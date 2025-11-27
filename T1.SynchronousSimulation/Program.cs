@@ -53,9 +53,14 @@ class Program {
         var simulation = new Simulation(philosopherNames, strategyFactory, coordinator,
             totalSteps: simulationSettings.TotalSteps, displayInterval: simulationSettings.DisplayInterval);
 
-        simulation.Run();
+        var isDeadlock = simulation.Run();
 
-        Console.WriteLine("\nСимуляция завершена. Нажмите любую клавишу для выхода...");
+        if (isDeadlock) {
+            Console.WriteLine("\nСимуляция завершена с дедлоком.");
+        } else {
+            Console.WriteLine("\nСимуляция успешно завершена без дедлока.");
+        }
+        Console.WriteLine("\nНажмите любую клавишу для выхода...");
         Console.ReadKey();
     }
 }

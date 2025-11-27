@@ -53,8 +53,9 @@ public class Simulation {
         }
     }
 
-    public void Run() {
+    public bool Run() {
         Console.WriteLine($"Запуск симуляции на {_totalSteps} шагов...\n");
+        var isDeadlocked = false;
 
         for (int step = 0; step < _totalSteps; step++) {
             // Console.ReadKey();
@@ -70,6 +71,7 @@ public class Simulation {
             if (IsDeadlocked()) {
                 Console.WriteLine($"\n!!! ОБНАРУЖЕН DEADLOCK НА ШАГЕ {step} !!!");
                 DisplayState(step);
+                isDeadlocked = true;
                 break;
             }
             
@@ -79,6 +81,7 @@ public class Simulation {
         }
 
         _metrics.PrintMetrics();
+        return isDeadlocked;
     }
 
     private bool IsDeadlocked() {
