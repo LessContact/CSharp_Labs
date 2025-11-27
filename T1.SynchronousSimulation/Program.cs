@@ -28,6 +28,7 @@ class Program {
         Console.WriteLine("Выберите стратегию:");
         Console.WriteLine("1 - Наивная стратегия без координатора");
         Console.WriteLine("2 - Стратегия с координатором");
+        Console.WriteLine("3 - Стратегия иерархии ресурсов");
         Console.WriteLine();
 
         var choice = Console.ReadLine();
@@ -44,6 +45,10 @@ class Program {
                 Console.WriteLine("\nИспользуется стратегия с координатором\n");
                 coordinator = new Coordinator(philosopherNames.Count);
                 strategyFactory = _ => new CoordinatorStrategy();
+                break;
+            case "3":
+                Console.WriteLine("\nИспользуется стратегия иерархии ресурсов\n");
+                strategyFactory = _ => new HierarchyStrategy();
                 break;
             default:
                 Console.WriteLine("\nВыбрана неизвестная стратегия. Exiting...");

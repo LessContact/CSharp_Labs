@@ -35,7 +35,7 @@ public class Simulation {
                 _coordinatedStrategies[i] = coordStrategy;
             }
 
-            var setSeed = seed ?? Environment.TickCount;
+            var setSeed = seed ?? Environment.TickCount + i * 1000;
             _philosophers.Add(new Philosopher(i, philosopherNames[i], leftFork, rightFork,
                 strategy, coordinator, new Random(setSeed))); // set seed to easily see deadlocks
         }
