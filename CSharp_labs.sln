@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T2.MultithreadedSimulation"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3.GenericHostSimulator", "T3.GenericHostSimulator\T3.GenericHostSimulator.csproj", "{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T4.UnitTesting", "T4.UnitTesting\T4.UnitTesting.csproj", "{D47753AC-5852-44E5-B32E-4DC2C8B56009}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,18 @@ Global
 		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|x64.Build.0 = Release|Any CPU
 		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|x86.ActiveCfg = Release|Any CPU
 		{ABEDB2C0-E1F4-4F85-B249-9F3B3000BBDA}.Release|x86.Build.0 = Release|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Debug|x64.Build.0 = Debug|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Debug|x86.Build.0 = Debug|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Release|x64.ActiveCfg = Release|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Release|x64.Build.0 = Release|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Release|x86.ActiveCfg = Release|Any CPU
+		{D47753AC-5852-44E5-B32E-4DC2C8B56009}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
