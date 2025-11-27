@@ -15,7 +15,7 @@ public class Simulation {
     private readonly Dictionary<int, CoordinatorStrategy> _coordinatedStrategies = new();
 
     public Simulation(List<string> philosopherNames, Func<int, IStrategy> strategyFactory,
-        ICoordinator? coordinator, int totalSteps, int displayInterval = 50000) {
+        ICoordinator? coordinator, int totalSteps, int displayInterval = 50000, int? seed = null) {
         _totalSteps = totalSteps;
         _displayInterval = displayInterval;
         _coordinator = coordinator;
@@ -35,8 +35,9 @@ public class Simulation {
                 _coordinatedStrategies[i] = coordStrategy;
             }
 
+            var setSeed = seed ?? Environment.TickCount;
             _philosophers.Add(new Philosopher(i, philosopherNames[i], leftFork, rightFork,
-                strategy, coordinator, new Random())); // set seed to easily see deadlocks
+                strategy, coordinator, new Random(setSeed))); // set seed to easily see deadlocks
         }
 
         _metrics = new Metrics(_philosophers, _forks, totalSteps);
