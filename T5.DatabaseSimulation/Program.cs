@@ -23,9 +23,6 @@ internal class Program {
                 var philosopherNames = context.Configuration.GetSection("PhilosopherNames").Get<List<string>>();
                 var philosopherCount = philosopherNames?.Count ?? 5;
                 
-                services.AddDbContext<SimulationDbContext>(options => 
-                    options.UseNpgsql(connectionString));
-                
                 services.AddDbContextFactory<SimulationDbContext>(options => 
                     options.UseNpgsql(connectionString));
                 

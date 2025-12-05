@@ -23,7 +23,9 @@ public class SimulationDbContext(DbContextOptions<SimulationDbContext> options) 
             entity.Property(e => e.State).HasConversion<string>();
             entity.Property(e => e.Action).HasConversion<string>();
             
+            // TODO: this index may not be necessary at all
             entity.HasIndex(e => new { e.SimulationRunId, e.TimestampMs });
+            
             entity.HasIndex(e => new { e.SimulationRunId, e.PhilosopherId, e.TimestampMs });
             
             entity.HasOne(e => e.SimulationRun)
@@ -37,7 +39,9 @@ public class SimulationDbContext(DbContextOptions<SimulationDbContext> options) 
             entity.Property(e => e.UsedByPhilosopherName).HasMaxLength(100);
             entity.Property(e => e.State).HasConversion<string>();
             
+            // TODO: this index may not be necessary at all
             entity.HasIndex(e => new { e.SimulationRunId, e.TimestampMs });
+            
             entity.HasIndex(e => new { e.SimulationRunId, e.ForkId, e.TimestampMs });
             
             entity.HasOne(e => e.SimulationRun)

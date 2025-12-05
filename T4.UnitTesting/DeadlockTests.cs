@@ -6,6 +6,8 @@ using T1.SynchronousSimulation.Models;
 namespace T4.UnitTesting;
 
 public class DeadlockTests {
+    // TODO: add arrange act assert comments
+    // TODO: also test naming should be in form arrange__act__assert
     [Fact]
     public void Simulation_ShouldDetect_DeadlockWithNaiveStrategy() {
         var philosopherNames = new List<string> { "P1", "P2", "P3", "P4", "P5" };
