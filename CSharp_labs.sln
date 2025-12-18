@@ -16,6 +16,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T5.DiningPhilosophers.View"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T5.DatabaseSimulation", "T5.DatabaseSimulation\T5.DatabaseSimulation.csproj", "{C9F558EB-4317-4E06-AA13-B5B36C304CBA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T6.MicroservicesSimulation", "T6.MicroservicesSimulation", "{607C8092-6DB2-4E10-B307-4D346D19CD83}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T6.PhilosopherService", "T6.PhilosopherService\T6.PhilosopherService.csproj", "{EECDBA58-C987-451B-AFF5-BD3D563CA70C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T6.TableService", "T6.TableService\T6.TableService.csproj", "{9C206DCA-C10D-471D-8427-BF4CB58672CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,8 +131,36 @@ Global
 		{C9F558EB-4317-4E06-AA13-B5B36C304CBA}.Release|x64.Build.0 = Release|Any CPU
 		{C9F558EB-4317-4E06-AA13-B5B36C304CBA}.Release|x86.ActiveCfg = Release|Any CPU
 		{C9F558EB-4317-4E06-AA13-B5B36C304CBA}.Release|x86.Build.0 = Release|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Debug|x64.Build.0 = Debug|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Debug|x86.Build.0 = Debug|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Release|x64.ActiveCfg = Release|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Release|x64.Build.0 = Release|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Release|x86.ActiveCfg = Release|Any CPU
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C}.Release|x86.Build.0 = Release|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Debug|x64.Build.0 = Debug|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Debug|x86.Build.0 = Debug|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Release|x64.ActiveCfg = Release|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Release|x64.Build.0 = Release|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EECDBA58-C987-451B-AFF5-BD3D563CA70C} = {607C8092-6DB2-4E10-B307-4D346D19CD83}
+		{9C206DCA-C10D-471D-8427-BF4CB58672CF} = {607C8092-6DB2-4E10-B307-4D346D19CD83}
 	EndGlobalSection
 EndGlobal

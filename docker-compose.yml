@@ -1,0 +1,159 @@
+﻿services:
+  table-service:
+    build:
+      context: .
+      dockerfile: T6.TableService/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - PHILOSOPHERS_COUNT=5
+      - DisplayIntervalMs=500
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    networks:
+      - philosophers-net
+
+  philosopher-plato:
+    build:
+      context: .
+      dockerfile: T6.PhilosopherService/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:8081
+      - PHILOSOPHER_NAME=Платон
+      - PHILOSOPHER_ID=philosopher-1
+      - LEFT_FORK_ID=0
+      - RIGHT_FORK_ID=1
+      - TABLE_SERVICE_URL=http://table-service:8080
+      - SIMULATION_DURATION_MINUTES=1
+      - THINKING_TIME_MIN_MS=100
+      - THINKING_TIME_MAX_MS=300
+      - EATING_TIME_MIN_MS=100
+      - EATING_TIME_MAX_MS=200
+      - FORK_ACQUISITION_TIME_MS=30
+      - RETRY_DELAY_MS=10
+      - STRATEGY=Hierarchy
+    depends_on:
+      table-service:
+        condition: service_healthy
+    ports:
+      - "8081:8081"
+    networks:
+      - philosophers-net
+
+  philosopher-aristotle:
+    build:
+      context: .
+      dockerfile: T6.PhilosopherService/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:8082
+      - PHILOSOPHER_NAME=Аристотель
+      - PHILOSOPHER_ID=philosopher-2
+      - LEFT_FORK_ID=1
+      - RIGHT_FORK_ID=2
+      - TABLE_SERVICE_URL=http://table-service:8080
+      - SIMULATION_DURATION_MINUTES=1
+      - THINKING_TIME_MIN_MS=100
+      - THINKING_TIME_MAX_MS=300
+      - EATING_TIME_MIN_MS=100
+      - EATING_TIME_MAX_MS=200
+      - FORK_ACQUISITION_TIME_MS=30
+      - RETRY_DELAY_MS=10
+      - STRATEGY=Hierarchy
+    depends_on:
+      table-service:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+    networks:
+      - philosophers-net
+
+  philosopher-socrates:
+    build:
+      context: .
+      dockerfile: T6.PhilosopherService/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:8083
+      - PHILOSOPHER_NAME=Сократ
+      - PHILOSOPHER_ID=philosopher-3
+      - LEFT_FORK_ID=2
+      - RIGHT_FORK_ID=3
+      - TABLE_SERVICE_URL=http://table-service:8080
+      - SIMULATION_DURATION_MINUTES=1
+      - THINKING_TIME_MIN_MS=100
+      - THINKING_TIME_MAX_MS=300
+      - EATING_TIME_MIN_MS=100
+      - EATING_TIME_MAX_MS=200
+      - FORK_ACQUISITION_TIME_MS=30
+      - RETRY_DELAY_MS=10
+      - STRATEGY=Hierarchy
+    depends_on:
+      table-service:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    networks:
+      - philosophers-net
+
+  philosopher-descartes:
+    build:
+      context: .
+      dockerfile: T6.PhilosopherService/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:8084
+      - PHILOSOPHER_NAME=Декарт
+      - PHILOSOPHER_ID=philosopher-4
+      - LEFT_FORK_ID=3
+      - RIGHT_FORK_ID=4
+      - TABLE_SERVICE_URL=http://table-service:8080
+      - SIMULATION_DURATION_MINUTES=1
+      - THINKING_TIME_MIN_MS=100
+      - THINKING_TIME_MAX_MS=300
+      - EATING_TIME_MIN_MS=100
+      - EATING_TIME_MAX_MS=200
+      - FORK_ACQUISITION_TIME_MS=30
+      - RETRY_DELAY_MS=10
+      - STRATEGY=Hierarchy
+    depends_on:
+      table-service:
+        condition: service_healthy
+    ports:
+      - "8084:8084"
+    networks:
+      - philosophers-net
+
+  philosopher-kant:
+    build:
+      context: .
+      dockerfile: T6.PhilosopherService/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:8085
+      - PHILOSOPHER_NAME=Кант
+      - PHILOSOPHER_ID=philosopher-5
+      - LEFT_FORK_ID=4
+      - RIGHT_FORK_ID=0
+      - TABLE_SERVICE_URL=http://table-service:8080
+      - SIMULATION_DURATION_MINUTES=1
+      - THINKING_TIME_MIN_MS=100
+      - THINKING_TIME_MAX_MS=300
+      - EATING_TIME_MIN_MS=100
+      - EATING_TIME_MAX_MS=200
+      - FORK_ACQUISITION_TIME_MS=30
+      - RETRY_DELAY_MS=10
+      - STRATEGY=Hierarchy
+    depends_on:
+      table-service:
+        condition: service_healthy
+    ports:
+      - "8085:8085"
+    networks:
+      - philosophers-net
+
+networks:
+  philosophers-net:
+    driver: bridge
+
