@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T5.DatabaseSimulation", "T5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T6.MicroservicesSimulation", "T6.MicroservicesSimulation", "{607C8092-6DB2-4E10-B307-4D346D19CD83}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
+		T6.Compose\docker-compose.yml = T6.Compose\docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T6.PhilosopherService", "T6.PhilosopherService\T6.PhilosopherService.csproj", "{EECDBA58-C987-451B-AFF5-BD3D563CA70C}"

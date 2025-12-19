@@ -1,8 +1,8 @@
 ﻿services:
   table-service:
     build:
-      context: .
-      dockerfile: T6.TableService/Dockerfile
+      context: ..
+      dockerfile: ./T6.TableService/Dockerfile
     ports:
       - "8080:8080"
     environment:
@@ -20,8 +20,8 @@
 
   philosopher-plato:
     build:
-      context: .
-      dockerfile: T6.PhilosopherService/Dockerfile
+      context: ..
+      dockerfile: ./T6.PhilosopherService/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8081
       - PHILOSOPHER_NAME=Платон
@@ -47,8 +47,8 @@
 
   philosopher-aristotle:
     build:
-      context: .
-      dockerfile: T6.PhilosopherService/Dockerfile
+      context: ..
+      dockerfile: ./T6.PhilosopherService/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8082
       - PHILOSOPHER_NAME=Аристотель
@@ -74,8 +74,8 @@
 
   philosopher-socrates:
     build:
-      context: .
-      dockerfile: T6.PhilosopherService/Dockerfile
+      context: ..
+      dockerfile: ./T6.PhilosopherService/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8083
       - PHILOSOPHER_NAME=Сократ
@@ -101,8 +101,8 @@
 
   philosopher-descartes:
     build:
-      context: .
-      dockerfile: T6.PhilosopherService/Dockerfile
+      context: ..
+      dockerfile: ./T6.PhilosopherService/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8084
       - PHILOSOPHER_NAME=Декарт
@@ -128,8 +128,8 @@
 
   philosopher-kant:
     build:
-      context: .
-      dockerfile: T6.PhilosopherService/Dockerfile
+      context: ..
+      dockerfile: ./T6.PhilosopherService/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8085
       - PHILOSOPHER_NAME=Кант
