@@ -1,8 +1,5 @@
-﻿﻿namespace PhilosopherService.Services;
-
-/// <summary>
-/// Настройки философа
-/// </summary>
+﻿namespace PhilosopherService.Services;
+ 
 public class PhilosopherOptions {
     public string PhilosopherId { get; set; } = "";
     public string PhilosopherName { get; set; } = "";

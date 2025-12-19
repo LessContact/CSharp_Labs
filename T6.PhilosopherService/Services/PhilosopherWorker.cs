@@ -3,9 +3,6 @@ using Microsoft.Extensions.Options;
 
 namespace PhilosopherService.Services;
 
-/// <summary>
-/// Основной сервис философа - реализует жизненный цикл философа
-/// </summary>
 public class PhilosopherWorker : BackgroundService {
     private readonly ITableServiceClient _tableClient;
     private readonly PhilosopherOptions _options;
@@ -34,8 +31,7 @@ public class PhilosopherWorker : BackgroundService {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
         _logger.LogInformation("Philosopher {Name} ({Id}) starting...", 
             _options.PhilosopherName, _options.PhilosopherId);
-
-        // Регистрация в Table Service с повторными попытками
+        
         var registered = false;
         while (!registered && !stoppingToken.IsCancellationRequested) {
             registered = await _tableClient.RegisterAsync(
@@ -51,8 +47,7 @@ public class PhilosopherWorker : BackgroundService {
         }
 
         _logger.LogInformation("Philosopher {Name} registered successfully", _options.PhilosopherName);
-
-        // Вычисляем время окончания симуляции
+        
         var endTime = DateTime.UtcNow.AddMinutes(_options.SimulationDurationMinutes);
 
         try {
@@ -96,20 +91,21 @@ public class PhilosopherWorker : BackgroundService {
     }
 
     private async Task TryToEatAsync(CancellationToken stoppingToken) {
-        // Получаем состояние вилок
-        var leftForkInfo = await _tableClient.GetForkStateAsync(_options.LeftForkId);
-        var rightForkInfo = await _tableClient.GetForkStateAsync(_options.RightForkId);
+        var leftForkTask = _tableClient.GetForkStateAsync(_options.LeftForkId);
+        var rightForkTask = _tableClient.GetForkStateAsync(_options.RightForkId);
+        
+        await Task.WhenAll(leftForkTask, rightForkTask);
+        
+        var leftForkInfo = leftForkTask.Result;
+        var rightForkInfo = rightForkTask.Result;
 
         if (leftForkInfo == null || rightForkInfo == null) {
             await Task.Delay(_options.RetryDelayMs, stoppingToken);
             return;
         }
-
-        // ForkInfo уже реализует IForkInfo, используем напрямую
-        // Спрашиваем стратегию, какое действие нужно предпринять
+        
         var action = _strategy.DecideAction(leftForkInfo, rightForkInfo, _state, _hasLeftFork, _hasRightFork);
-
-        // Выполняем действие, предложенное стратегией
+        
         switch (action) {
             case PhilosopherAction.TakeLeftFork:
                 await Task.Delay(_options.ForkAcquisitionTimeMs, stoppingToken);
@@ -140,13 +136,16 @@ public class PhilosopherWorker : BackgroundService {
                 _hasRightFork = false;
                 _logger.LogDebug("Philosopher {Name} released right fork {ForkId}", _options.PhilosopherName, _options.RightForkId);
                 break;
+            
+            case PhilosopherAction.ReleaseBothForks:
+                await ReleaseForksAsync();
+                _logger.LogDebug("Philosopher {Name} released both forks ({ForkId}, {ForkId2})", _options.PhilosopherName, _options.RightForkId, _options.LeftForkId);
+                break;
 
             case PhilosopherAction.None:
-                // Ничего не делаем
                 break;
         }
-
-        // Если взяли обе вилки - начинаем есть
+        
         if (_hasLeftFork && _hasRightFork) {
             _state = PhilosopherState.Eating;
             var waitingTime = (long)(DateTime.UtcNow - _hungryStartTime).TotalMilliseconds;
@@ -161,7 +160,6 @@ public class PhilosopherWorker : BackgroundService {
             _logger.LogDebug("Philosopher {Name} started eating after {WaitMs}ms", _options.PhilosopherName, waitingTime);
         }
         else {
-            // Небольшая задержка перед следующей попыткой
             await Task.Delay(_options.RetryDelayMs, stoppingToken);
         }
     }

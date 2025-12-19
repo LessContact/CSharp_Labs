@@ -18,7 +18,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# Install curl for healthcheck
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["dotnet", "T6.PhilosopherService.dll"]

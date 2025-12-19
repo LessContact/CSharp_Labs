@@ -7,14 +7,11 @@ namespace PhilosopherService;
 public class Program {
     public static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
-
-        // Добавляем контроллеры
+        
         builder.Services.AddControllers();
         
-        // Добавляем Health Checks
         builder.Services.AddHealthChecks();
-
-        // Конфигурируем опции философа из переменных окружения
+        
         var options = new PhilosopherOptions {
             PhilosopherId = Environment.GetEnvironmentVariable("PHILOSOPHER_ID") ?? "philosopher-0",
             PhilosopherName = Environment.GetEnvironmentVariable("PHILOSOPHER_NAME") ?? "Unknown",
@@ -44,8 +41,7 @@ public class Program {
             opt.RetryDelayMs = options.RetryDelayMs;
             opt.StrategyName = options.StrategyName;
         });
-
-        // Регистрируем стратегию на основе переменной окружения
+        
         IStrategy strategy = options.StrategyName.ToLower() switch {
             "naive" => new NaiveStrategy(),
             "hierarchy" => new HierarchyStrategy(),
@@ -53,24 +49,21 @@ public class Program {
             _ => new HierarchyStrategy()
         };
         builder.Services.AddSingleton<IStrategy>(strategy);
-
-        // Конфигурируем HttpClient для T6.TableService
+        
         var tableServiceUrl = Environment.GetEnvironmentVariable("TABLE_SERVICE_URL") ?? "http://localhost:8080";
 
         builder.Services.AddHttpClient<ITableServiceClient, TableServiceClient>(client => {
             client.BaseAddress = new Uri(tableServiceUrl);
             client.Timeout = TimeSpan.FromSeconds(30);
         });
-
-        // Добавляем фоновый сервис философа
+        
         builder.Services.AddHostedService<PhilosopherWorker>();
 
         var app = builder.Build();
 
         app.UseRouting();
         app.MapControllers();
-        
-        // Регистрируем health check endpoint
+
         app.MapHealthChecks("/health");
 
         Console.WriteLine($"Philosopher {options.PhilosopherName} ({options.PhilosopherId}) starting...");

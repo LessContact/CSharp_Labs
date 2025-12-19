@@ -15,9 +15,6 @@ public class TableController : ControllerBase {
         _logger = logger;
     }
 
-    /// <summary>
-    /// Регистрация философа в системе
-    /// </summary>
     [HttpPost("register")]
     public ActionResult<RegisterPhilosopherResponse> RegisterPhilosopher([FromBody] RegisterPhilosopherRequest request) {
         var success = _tableManager.RegisterPhilosopher(
@@ -32,9 +29,6 @@ public class TableController : ControllerBase {
         });
     }
 
-    /// <summary>
-    /// Попытка взять вилку
-    /// </summary>
     [HttpPost("fork/take")]
     public ActionResult<TakeForkResponse> TakeFork([FromBody] TakeForkRequest request) {
         try {
@@ -56,9 +50,6 @@ public class TableController : ControllerBase {
         }
     }
 
-    /// <summary>
-    /// Освобождение вилки
-    /// </summary>
     [HttpPost("fork/release")]
     public ActionResult<ReleaseForkResponse> ReleaseFork([FromBody] ReleaseForkRequest request) {
         try {
@@ -78,10 +69,7 @@ public class TableController : ControllerBase {
         }
     }
 
-    /// <summary>
-    /// Получение состояния вилки
-    /// </summary>
-    [HttpGet("fork/{forkId}")]
+    [HttpGet("fork/{forkId:int}")]
     public ActionResult<ForkInfo> GetForkState(int forkId) {
         try {
             var fork = _tableManager.GetFork(forkId);
@@ -91,10 +79,7 @@ public class TableController : ControllerBase {
             return NotFound();
         }
     }
-
-    /// <summary>
-    /// Уведомление о начале еды (отметка вилок как используемых для еды)
-    /// </summary>
+    
     [HttpPost("eating/start")]
     public IActionResult StartEating([FromBody] StartEatingRequest request) {
         try {
@@ -110,19 +95,13 @@ public class TableController : ControllerBase {
             return BadRequest();
         }
     }
-
-    /// <summary>
-    /// Запись метрики о приёме пищи
-    /// </summary>
+    
     [HttpPost("meal/record")]
     public IActionResult RecordMeal([FromBody] RecordMealRequest request) {
         _tableManager.RecordMeal(request.PhilosopherId, request.PhilosopherName, request.WaitingTimeMs);
         return Ok();
     }
-
-    /// <summary>
-    /// Обновление состояния философа
-    /// </summary>
+    
     [HttpPost("philosopher/state")]
     public IActionResult UpdatePhilosopherState([FromBody] UpdatePhilosopherStateRequest request) {
         _tableManager.UpdatePhilosopherState(
@@ -133,27 +112,18 @@ public class TableController : ControllerBase {
             request.EatenCount);
         return Ok();
     }
-
-    /// <summary>
-    /// Уведомление о выходе философа
-    /// </summary>
+    
     [HttpPost("philosopher/exit")]
     public IActionResult PhilosopherExit([FromBody] PhilosopherExitRequest request) {
         _tableManager.PhilosopherExit(request.PhilosopherId, request.PhilosopherName, request.TotalMeals);
         return Ok();
     }
-
-    /// <summary>
-    /// Получение статуса симуляции
-    /// </summary>
+    
     [HttpGet("status")]
     public ActionResult<SimulationStatusResponse> GetStatus() {
         return Ok(_tableManager.GetStatus());
     }
-
-    /// <summary>
-    /// Получение итоговых метрик
-    /// </summary>
+    
     [HttpGet("metrics")]
     public ActionResult<SimulationMetrics> GetMetrics() {
         return Ok(_tableManager.GetFinalMetrics());

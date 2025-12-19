@@ -2,9 +2,6 @@
 
 namespace PhilosopherService.Services;
 
-/// <summary>
-/// Клиент для взаимодействия с Table Service через HTTP
-/// </summary>
 public interface ITableServiceClient {
     Task<bool> RegisterAsync(string philosopherId, string philosopherName, int leftForkId, int rightForkId);
     Task<TakeForkResponse> TakeForkAsync(string philosopherId, string philosopherName, int forkId);

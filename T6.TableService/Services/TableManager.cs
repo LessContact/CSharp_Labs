@@ -84,7 +84,6 @@ public class TableManager : ITableManager {
     public void RecordMeal(string philosopherId, string philosopherName, long waitingTimeMs) {
         lock (_lock) {
             if (!_philosophers.TryGetValue(philosopherId, out var philosopher)) {
-                // Если философ ещё не зарегистрирован, просто логируем
                 _logger.LogWarning("Meal recorded for unregistered philosopher {Id}", philosopherId);
                 return;
             }
