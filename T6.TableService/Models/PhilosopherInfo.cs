@@ -2,9 +2,6 @@
 
 namespace TableService.Models;
 
-/// <summary>
-/// Информация о зарегистрированном философе
-/// </summary>
 public class PhilosopherInfo {
     public string PhilosopherId { get; set; } = "";
     public string PhilosopherName { get; set; } = "";
@@ -29,4 +26,3 @@ public class PhilosopherInfo {
         };
     }
 }
-

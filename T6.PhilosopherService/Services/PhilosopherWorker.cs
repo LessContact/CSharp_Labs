@@ -71,10 +71,8 @@ public class PhilosopherWorker : BackgroundService {
             // Expected when stopping
         }
         finally {
-            // Освобождаем вилки при выходе
             await ReleaseForksAsync();
 
-            // Уведомляем стол о выходе
             await _tableClient.NotifyExitAsync(_options.PhilosopherId, _options.PhilosopherName, _eatenCount);
             _logger.LogInformation("Philosopher {Name} exited with {Meals} meals", 
                 _options.PhilosopherName, _eatenCount);

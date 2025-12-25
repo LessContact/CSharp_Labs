@@ -4,9 +4,6 @@ using DiningPhilosophers.Contracts;
 
 namespace TableService.Services;
 
-/// <summary>
-/// Менеджер стола - управляет вилками и философами
-/// </summary>
 public interface ITableManager {
     Fork GetFork(int forkId);
     IReadOnlyList<Fork> GetAllForks();
@@ -177,4 +174,3 @@ public class TableManager : ITableManager {
         return _expectedPhilosophersCount;
     }
 }
-

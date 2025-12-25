@@ -3,9 +3,6 @@ using DiningPhilosophers.Contracts;
 
 namespace TableService.Services;
 
-/// <summary>
-/// Сервис для отображения состояния симуляции
-/// </summary>
 public class DisplayService : BackgroundService {
     private readonly ITableManager _tableManager;
     private readonly ILogger<DisplayService> _logger;
@@ -21,7 +18,6 @@ public class DisplayService : BackgroundService {
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
-        // Ждём, пока все философы зарегистрируются
         while (!stoppingToken.IsCancellationRequested && 
                _tableManager.GetPhilosophersCount() < _tableManager.GetExpectedPhilosophersCount()) {
             await Task.Delay(100, stoppingToken);
@@ -39,7 +35,6 @@ public class DisplayService : BackgroundService {
             // Expected
         }
 
-        // Выводим финальные метрики
         DisplayFinalMetrics();
     }
 
@@ -109,4 +104,3 @@ public class DisplayService : BackgroundService {
         Console.WriteLine(sb.ToString());
     }
 }
-

@@ -2,9 +2,6 @@
 
 namespace TableService.Models;
 
-/// <summary>
-/// Модель вилки на столе
-/// </summary>
 public class Fork {
     public int Id { get; }
     public ForkState State { get; private set; } = ForkState.Available;
@@ -97,4 +94,3 @@ public class Fork {
         }
     }
 }
-

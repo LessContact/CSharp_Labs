@@ -1,4 +1,4 @@
-﻿﻿using DiningPhilosophers.Contracts;
+﻿using DiningPhilosophers.Contracts;
 using DiningPhilosophers.Strategies;
 using PhilosopherService.Services;
 
