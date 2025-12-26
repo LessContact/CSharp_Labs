@@ -16,13 +16,11 @@ public class Program {
         var options = new CoordinatorOptions {
             PhilosophersCount = int.Parse(Environment.GetEnvironmentVariable("PHILOSOPHERS_COUNT") ?? "5"),
             RabbitMqHost = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
-            CoordinatorStepIntervalMs = int.Parse(Environment.GetEnvironmentVariable("COORDINATOR_STEP_INTERVAL_MS") ?? "10")
         };
 
         builder.Services.Configure<CoordinatorOptions>(opt => {
             opt.PhilosophersCount = options.PhilosophersCount;
             opt.RabbitMqHost = options.RabbitMqHost;
-            opt.CoordinatorStepIntervalMs = options.CoordinatorStepIntervalMs;
         });
 
         var tableServiceUrl = Environment.GetEnvironmentVariable("TABLE_SERVICE_URL") ?? "http://localhost:8080";
