@@ -38,36 +38,78 @@ public class CoordinatorWorker : BackgroundService {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
         _logger.LogInformation("Coordinator starting, waiting for {Count} philosophers...", _options.PhilosophersCount);
 
-        await _bus.PubSub.SubscribeAsync<PhilosopherRegisteredMessage>(
-            "coordinator",
-            HandlePhilosopherRegistered);
-        _subscriptions.MarkSubscribed();
+        try {
+            await SubscribeAllAsync(stoppingToken);
 
-        await _bus.PubSub.SubscribeAsync<HungryMessage>(
-            "coordinator",
-            HandleHungryMessage);
-        _subscriptions.MarkSubscribed();
-
-        await _bus.PubSub.SubscribeAsync<FinishedEatingMessage>(
-            "coordinator",
-            HandleFinishedEating);
-        _subscriptions.MarkSubscribed();
-
-        await _bus.PubSub.SubscribeAsync<PhilosopherExitedMessage>(
-            "coordinator",
-            HandlePhilosopherExited);
-        _subscriptions.MarkSubscribed();
-
-        _logger.LogInformation("Coordinator subscribed to messages");
-
-        while (!stoppingToken.IsCancellationRequested) {
-            await _workSignal.WaitAsync(stoppingToken);
-            await StartDrainingIfNeeded(stoppingToken);
+            while (!stoppingToken.IsCancellationRequested) {
+                await _workSignal.WaitAsync(stoppingToken);
+                await StartDrainingIfNeeded(stoppingToken);
+            }
+        }
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested) {
+        }
+        catch (TaskCanceledException) when (stoppingToken.IsCancellationRequested) {
         }
     }
 
-    private void SignalWork() {
-        _workSignal.Release();
+    private async Task SubscribeAllAsync(CancellationToken stoppingToken) {
+        const int maxAttempts = 2;
+
+        for (var attempt = 1; attempt <= maxAttempts; attempt++) {
+            stoppingToken.ThrowIfCancellationRequested();
+            _subscriptions.Reset();
+
+            try {
+                await _bus.PubSub.SubscribeAsync<PhilosopherRegisteredMessage>(
+                    "coordinator",
+                    HandlePhilosopherRegistered,
+                    stoppingToken);
+                _subscriptions.MarkSubscribed();
+
+                await _bus.PubSub.SubscribeAsync<HungryMessage>(
+                    "coordinator",
+                    HandleHungryMessage,
+                    stoppingToken);
+                _subscriptions.MarkSubscribed();
+
+                await _bus.PubSub.SubscribeAsync<FinishedEatingMessage>(
+                    "coordinator",
+                    HandleFinishedEating,
+                    stoppingToken);
+                _subscriptions.MarkSubscribed();
+
+                await _bus.PubSub.SubscribeAsync<PhilosopherExitedMessage>(
+                    "coordinator",
+                    HandlePhilosopherExited,
+                    stoppingToken);
+                _subscriptions.MarkSubscribed();
+
+                _logger.LogInformation("Coordinator subscribed to messages");
+                return;
+            }
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested) {
+                throw;
+            }
+            catch (TaskCanceledException) when (stoppingToken.IsCancellationRequested) {
+                throw;
+            }
+            catch (Exception ex) {
+                if (attempt >= maxAttempts) {
+                    _logger.LogError(ex, "Failed to subscribe to coordinator messages after {Attempts} attempts", attempt);
+                    throw;
+                }
+
+                _logger.LogWarning(ex, "Failed to subscribe to coordinator messages (attempt {Attempt}/{Max}). Retrying...",
+                    attempt, maxAttempts);
+
+                try {
+                    await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
+                }
+                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested) {
+                    throw;
+                }
+            }
+        }
     }
 
     private async Task StartDrainingIfNeeded(CancellationToken stoppingToken) {
@@ -101,6 +143,10 @@ public class CoordinatorWorker : BackgroundService {
                 SignalWork();
             }
         }
+    }
+
+    private void SignalWork() {
+        _workSignal.Release();
     }
 
     private Task HandlePhilosopherRegistered(PhilosopherRegisteredMessage message) {

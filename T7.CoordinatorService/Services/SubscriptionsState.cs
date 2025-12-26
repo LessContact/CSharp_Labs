@@ -5,6 +5,10 @@ public sealed class SubscriptionsState {
 
     public const int ExpectedSubscriptions = 4;
 
+    public void Reset() {
+        Interlocked.Exchange(ref _subscribedCount, 0);
+    }
+
     public void MarkSubscribed() {
         Interlocked.Increment(ref _subscribedCount);
     }
